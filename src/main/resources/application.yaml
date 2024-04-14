@@ -1,0 +1,51 @@
+#  http://localhost:7070/swagger-ui/index.html#/
+server:
+  port: ${PORT:7070}
+  application:
+    name: AuthService
+
+supabase:
+  url: ${SUPABASE_URL}
+  projectId: ${SUPABASE_PROJECT_ID}
+  anonKey: ${SUPABASE_ANON_KEY}
+  jwtSecret: ${SUPABASE_JWT_SECRET}
+  successfulLoginRedirectPage: "/account"
+  passwordRecoveryPage: /updatePassword
+  unauthenticatedPage: /unauthenticated
+  unauthorizedPage: /unauthorizedPage
+  sslOnly: false
+  database:
+    host: ${SUPABASE_HOST}
+    password: ${SUPABASE_DATABASE_PASSWORD}
+
+spring:
+  application:
+    name: AUTH-SERVICE
+  datasource:
+    url: ${SUPABASE_DATABASE_URL}
+    username: ${SUPABASE_DATABASE_USER}
+    password: ${SUPABASE_DATABASE_PASSWORD}
+    driverClassName: org.postgresql.Driver
+  jpa:
+    open-in-view: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        ddl-auto: validate
+        jdbc:
+          lob:
+            non_contextual_creation: true
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: ${EUREKA_SERVER_ADDRESS:http://localhost:8761/eureka}
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
